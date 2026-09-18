@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Teller - Wheel of Destiny</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #080808;
+            color: #f5f5f5;
+            font-family: "Courier New", monospace;
+        }
+
+        header {
+            padding: 30px 40px;
+            border-bottom: 2px solid #ff1744;
+            background: #111;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #ff1744;
+            font-size: 32px;
+            letter-spacing: 4px;
+        }
+
+        header p {
+            color: #aaa;
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: #151515;
+            border: 1px solid #ff1744;
+            padding: 30px;
+            border-radius: 6px;
+            box-shadow: 0 0 25px rgba(255, 23, 68, 0.15);
+        }
+
+        h2 {
+            color: #ff1744;
+            border-left: 4px solid #ff1744;
+            padding-left: 15px;
+            letter-spacing: 2px;
+        }
+
+        .intro {
+            color: #bbb;
+            line-height: 1.8;
+        }
+
+        .questions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            background: #e9143d;
+            color: white;
+            border: none;
+            padding: 18px;
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #ff1744;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(255, 23, 68, 0.5);
+        }
+
+        .fortune-box {
+            margin-top: 30px;
+            padding: 30px;
+            min-height: 150px;
+            border: 1px solid #00ffff;
+            background: #090909;
+            text-align: center;
+        }
+
+        .fortune-box h3 {
+            color: #00ffff;
+            letter-spacing: 3px;
+        }
+
+        #fortune {
+            color: white;
+            font-size: 20px;
+            line-height: 1.7;
+        }
+
+        .number {
+            color: #00ffff;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 25px 20px;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            main {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .questions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>IMPOSTER PROJECT</h1>
+    <p>MAIN EVENT — FORTUNE TELLER / WHEEL OF DESTINY</p>
+</header>
+
+<main>
+    <div class="card">
+
+        <h2>🔮 THE FORTUNE GENERATOR</h2>
+
+        <p class="intro">
+            Welcome, traveler. Choose a question and let destiny reveal
+            what awaits you...
+        </p>
+
+        <div class="questions">
+
+            <button onclick="showFortune('prize')">
+                🎁 Will I win a prize?
+            </button>
+
+            <button onclick="showFortune('match')">
+                ❤️ Who is my event match?
+            </button>
+
+            <button onclick="showFortune('future')">
+                🔮 My future today
+            </button>
+
+            <button onclick="showFortune('number')">
+                🍀 My lucky number
+            </button>
+
+            <button onclick="showFortune('awaits')">
+                ✨ What awaits me?
+            </button>
+
+        </div>
+
+        <div class="fortune-box">
+            <h3>YOUR FORTUNE</h3>
+
+            <p id="fortune">
+                Choose one of the questions above...
+            </p>
+        </div>
+
+    </div>
+</main>
+
+<script>
+    const fortunes = {
+
+        prize: [
+            "The stars are smiling upon you. A surprise may be closer than you think! 🎁",
+            "Fortune favors the bold. Take your chance!",
+            "Something exciting is waiting for you at the event.",
+            "The wheel of destiny points toward good luck!",
+            "Keep your eyes open — an unexpected reward may appear."
+        ],
+
+        match: [
+            "Your event match is someone who makes you laugh.",
+            "Look for the person wearing your favorite color.",
+            "Your match may be closer than you expect.",
+            "Destiny says your match has a mysterious smile.",
+            "Someone interesting is waiting to cross your path."
+        ],
+
+        future: [
+            "Today brings an unexpected opportunity.",
+            "A small decision today could lead to something wonderful.",
+            "Your future is brighter than you think.",
+            "Adventure is waiting around the corner.",
+            "Trust yourself. Something interesting is coming."
+        ],
+
+        number: [
+            "Your lucky number is ",
+            "The universe has chosen number ",
+            "Destiny whispers the number ",
+            "Your fortune points toward ",
+            "Today's magical number is "
+        ],
+
+        awaits: [
+            "A mysterious surprise awaits you.",
+            "New friendships may be waiting.",
+            "Adventure awaits beyond the next door.",
+            "Something you have been waiting for may arrive soon.",
+            "The unknown is calling. Are you ready?"
+        ]
+    };
+
+    function showFortune(type) {
+
+        const fortuneElement = document.getElementById("fortune");
+
+        const list = fortunes[type];
+
+        const randomIndex = Math.floor(Math.random() * list.length);
+
+        let result = list[randomIndex];
+
+        if (type === "number") {
+
+            const luckyNumber = Math.floor(Math.random() * 100) + 1;
+
+            result += `<span class="number">${luckyNumber}</span>`;
+
+        }
+
+        fortuneElement.innerHTML = result;
+    }
+</script>
+
+</body>
+</html>
